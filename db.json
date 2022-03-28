@@ -1,0 +1,52 @@
+{
+  "projects": [
+    {
+      "name": "123",
+      "category": "Infra",
+      "value": 123,
+      "id": 1
+    },
+    {
+      "name": "123",
+      "category": "Infra",
+      "value": 123,
+      "id": 2
+    },
+    {
+      "name": "123",
+      "category": "Infra",
+      "value": 123,
+      "id": 3
+    },
+    {
+      "name": "123",
+      "category": "Infra",
+      "value": 123,
+      "id": 4
+    },
+    {
+      "name": "123",
+      "category": "Infra",
+      "value": 123,
+      "id": 5
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Infra"
+    },
+    {
+      "id": 2,
+      "name": "Desenvolvimento"
+    },
+    {
+      "id": 3,
+      "name": "Design"
+    },
+    {
+      "id": 4,
+      "name": "Planejamento"
+    }
+  ]
+}
