@@ -10,6 +10,8 @@ export const Container = styled.div`
 
         > h1 {
             font-size: 2.6rem;
+
+            color: var(--text-title);
         }
 
         > button {
@@ -43,6 +45,8 @@ export const CardsSection = styled.section`
     background-color: var(--text-title);
 
     border-radius: 0.3rem;
+
+    box-shadow: 0 0 0.3rem var(--text-title);
 
     &::-webkit-scrollbar {
         width: 0.4rem;

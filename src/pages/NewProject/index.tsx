@@ -3,6 +3,7 @@ import { Form } from "../../components/Form";
 import { Container } from "./styles";
 
 export function NewProject() {
+    
     return (
         <SectionContainer>
             <Container>

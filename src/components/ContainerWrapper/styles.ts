@@ -11,4 +11,5 @@ export const SectionContainer = styled.section`
     padding: 0 2rem;
 
     width: 100%;
+
 `;

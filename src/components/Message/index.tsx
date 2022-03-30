@@ -3,22 +3,20 @@ import { Container } from './styles';
 
 type MessageProps = {
     message: string;
+    messageStatus: boolean;
 };
 
-export const Message = ({ message }: MessageProps) => {
-    const [messageActive, setMessageActive] = useState(!!message);
+export const Message = ({ message, messageStatus }: MessageProps) => {
+    const [messageIsActive, setMessageIsActive] = useState(messageStatus);
 
     useEffect(() => {
-        const timer = () => {
-            setTimeout(() => {
-                setMessageActive(false);
-            }, 3000);
-        };
-        timer()
-    }, [])
+        setTimeout(() => {
+            setMessageIsActive(false)
+        }, 1500);
+    }, []);
 
     return (
-        <Container messageActive={messageActive}>
+        <Container messageStatus={messageIsActive}>
             <h1>{message}</h1>
         </Container>
     );

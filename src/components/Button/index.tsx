@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 import { Container } from "./styles";
 
-type LinkButtonProps = {
+type ButtonProps = {
     to: string;
-    text: string;
-}
+    text?: string;
+    padding?: string;
+};
 
-export function LinkButton({to, text}: LinkButtonProps) {
+export function Button({ to, text, padding }: ButtonProps) {
     return (
-        <Container>
+        <Container padding={padding}>
             <Link to={to}>{text}</Link>
         </Container>
     );

@@ -1,12 +1,14 @@
 import styled, { css } from 'styled-components';
 
 type MessageProps = {
-    messageActive: boolean;
+    messageStatus: boolean;
 };
 
 export const Container = styled.div<MessageProps>`
     position: absolute;
-    top: -5rem;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
 
     visibility: hidden;
 
@@ -35,9 +37,9 @@ export const Container = styled.div<MessageProps>`
     > p {
         font-size: 0.8rem;
     }
-    
-    ${({ messageActive }) =>
-        messageActive &&
+
+    ${({ messageStatus }) =>
+        messageStatus &&
         css`
             visibility: visible;
 

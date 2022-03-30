@@ -3,7 +3,7 @@ import { ProjectsContext } from '../../contexts/ProjectsContext';
 import { Container } from './styles';
 
 export function Form() {
-    const { categories, createProject } = useContext(ProjectsContext);
+    const { categories, handleCreateProject } = useContext(ProjectsContext);
 
     const [projectName, setProjectName] = useState('');
     const [projectCategory, setProjectCategory] = useState('Infra');
@@ -11,12 +11,12 @@ export function Form() {
 
     function handlePostProject(event: FormEvent) {
         event.preventDefault();
-        
-        createProject({
+
+        handleCreateProject({
             name: projectName,
             category: projectCategory,
-            value: projectValue
-        })
+            value: projectValue,
+        });
     }
 
     return (

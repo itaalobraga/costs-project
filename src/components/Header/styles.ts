@@ -11,11 +11,13 @@ export const Container = styled.header`
 
     background-color: var(--text-title);
 
-    box-shadow: 0 0 .3rem var(--text-title);
+    box-shadow: 0 0 0.3rem var(--text-title);
 
     > img {
         max-width: 100%;
         width: 4rem;
+        filter: drop-shadow(0 0 .3rem var(--text-body));
+
     }
 
     > button {

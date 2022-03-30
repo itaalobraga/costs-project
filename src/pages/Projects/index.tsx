@@ -1,50 +1,40 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Card } from '../../components/Card';
 import { SectionContainer } from '../../components/ContainerWrapper/styles';
-import { LinkButton } from '../../components/LinkButton';
+import { Button } from '../../components/Button';
 import { Message } from '../../components/Message';
 import { ProjectsContext } from '../../contexts/ProjectsContext';
 import { CardsSection, Container } from './styles';
+import { Modal } from '../../components/Modal';
 
 export function Projects() {
     const location = useLocation();
 
-    let message = '';
+    const message = location.state;
 
     const { projects, handleDeleteProject } = useContext(ProjectsContext);
-    const [isActive, setIsActive] = useState(false);
+    const [projectById, setProjectById] = useState({name: '', value: 0})
 
-    useEffect(() => {
-        message = String(location.state);
-
-        if (!message) {
-            setIsActive(false);
-            return;
-        }
-
-        setIsActive(true);
-    }, []);
-
-    console.log('message => ', message);
+    const [openModal, setOpenModal] = useState(false);
 
     return (
         <SectionContainer>
+            <Message messageStatus={!!message} message={String(message)} />
+            <Modal
+                isActive={openModal}
+                closeModal={setOpenModal}
+            />
             <Container>
-                {console.log('isActive => ', isActive)}
-                {isActive && (
-                    <>
-                        <Message message={message} />
-                    </>
-                )}
                 <div>
                     <h1>Projects</h1>
-                    <LinkButton to="/newproject" text="Create Project" />
+                    <Button to="/newproject" text="Create Project" />
                 </div>
                 <CardsSection>
                     {projects.map((project) => (
                         <Card
                             key={project.id}
+                            projectId={project.id}
                             projectName={project.name}
                             category={project.category}
                             value={new Intl.NumberFormat('pt-BR', {
@@ -54,6 +44,7 @@ export function Projects() {
                             handleDeleteProject={() =>
                                 handleDeleteProject(project.id)
                             }
+                            openModal={setOpenModal}
                         />
                     ))}
                 </CardsSection>
