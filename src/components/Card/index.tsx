@@ -2,7 +2,6 @@ import { CardButtonArea, Container } from './styles';
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 import { useContext } from 'react';
 import { ProjectsContext } from '../../contexts/ProjectsContext';
-import { api } from '../../services/api';
 
 type CardProps = {
     projectName: string;
@@ -13,22 +12,8 @@ type CardProps = {
     openModal: (param: boolean) => void;
 };
 
-export const Card = ({
-    projectName,
-    value,
-    category,
-    projectId,
-    handleDeleteProject,
-    openModal
-}: CardProps) => {
-    const { setProjectId } = useContext(ProjectsContext);
-
-    async function getProjectId(projectId: number) {
-        const response = await api.get(`/projects/${projectId}`);
-        console.log('response => ', response);
-
-        setProjectId(projectId);
-    }
+export const Card = ({ projectName, value, category, projectId, handleDeleteProject, openModal }: CardProps) => {
+    const { getProjectById } = useContext(ProjectsContext);
 
     return (
         <Container>
@@ -45,7 +30,7 @@ export const Card = ({
                 <button
                     type="button"
                     onClick={() => {
-                        openModal(true), getProjectId(projectId);
+                        openModal(true), getProjectById(projectId);
                     }}
                 >
                     <FaEdit />

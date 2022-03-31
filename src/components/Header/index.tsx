@@ -12,8 +12,6 @@ export function Header() {
             <Nav isActive={isActive} onClick={() => setIsActive(false)}>
                 <Link to="/">Home</Link>
                 <Link to="/projects">Projetos</Link>
-                <Link to="/contact">Contact</Link>
-                <Link to="/company">Company</Link>
             </Nav>
             <button type="button" onClick={() => setIsActive(!isActive)}>
                 <FaBars />

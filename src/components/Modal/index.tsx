@@ -2,17 +2,14 @@ import { FormEvent, useContext, useState } from 'react';
 import { ProjectsContext } from '../../contexts/ProjectsContext';
 import { Container, Content, Form } from './styles';
 import { FaWindowClose } from 'react-icons/fa';
+import CurrencyFormat from 'react-currency-format';
 
 type ModalProps = {
-    isActive: boolean;
     closeModal: (param: boolean) => void;
 };
 
-
-export function Modal ({ isActive, closeModal }: ModalProps)  {
-
-    const { categories, handleEditProject, projectId } =
-        useContext(ProjectsContext);
+export function Modal({ closeModal }: ModalProps) {
+    const { categories, projectById, handleEditProject } = useContext(ProjectsContext);
 
     const [projectName, setProjectName] = useState('');
     const [projectCategory, setProjectCategory] = useState('');
@@ -22,20 +19,18 @@ export function Modal ({ isActive, closeModal }: ModalProps)  {
         e.preventDefault();
 
         const userUpdated = {
-            name: projectName,
-            category: projectCategory,
-            value: projectValue,
+            name: projectName ? projectName : projectById.name,
+            category: projectCategory ? projectCategory : projectById.category,
+            value: projectValue ? projectValue : projectById.value,
         };
 
-        await handleEditProject(userUpdated, projectId);
+        await handleEditProject(userUpdated, projectById.id);
 
         closeModal(false);
-        setProjectName('');
-        setProjectValue(0);
     }
 
     return (
-        <Container isActive={isActive}>
+        <Container>
             <Content>
                 <button type="button" onClick={() => closeModal(false)}>
                     <FaWindowClose />
@@ -45,36 +40,44 @@ export function Modal ({ isActive, closeModal }: ModalProps)  {
                         <label>Nome do Projeto:</label>
                         <input
                             type="text"
-                            placeholder="Insira o nome do projeto"
+                            placeholder={projectById.name}
                             onChange={(e) => setProjectName(e.target.value)}
-                            value='test'
+                            value={projectName}
                         />
                     </div>
                     <div>
                         <label>Orçamento do Projeto:</label>
-                        <input
-                            type="number"
-                            placeholder="Insira o orçamento do projeto"
-                            onChange={(e) =>
-                                setProjectValue(Number(e.target.value))
-                            }
-                            value='3'
+                        <CurrencyFormat
+                            type="text"
+                            prefix="R$ "
+                            decimalSeparator=","
+                            thousandSeparator="."
+                            decimalScale={2}
+                            fixedDecimalScale={true}
+                            onValueChange={(values) => {
+                                setProjectValue(values.floatValue);
+                            }}
+                            placeholder={new Intl.NumberFormat('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL',
+                            }).format(projectById.value)}
+                            spellCheck={false}
                         />
                     </div>
                     <div>
                         <label>Selecione uma categoria:</label>
-                        <select
-                            value={projectCategory}
-                            onChange={(e) => setProjectCategory(e.target.value)}
-                        >
-                            <option disabled value="">
-                                Selecione
-                            </option>
-                            {categories.map((category) => (
-                                <option key={category.id} value={category.name}>
-                                    {category.name}
-                                </option>
-                            ))}
+                        <select value={projectCategory} onChange={(e) => setProjectCategory(e.target.value)}>
+                            <option>Atual: {projectById.category}</option>
+                            {categories.map((category) => {
+                                if (category.name !== projectById.category) {
+                                    return (
+                                        <option key={category.id} value={category.name}>
+                                            {category.name}
+                                        </option>
+                                    );
+                                }
+                                return;
+                            })}
                         </select>
                     </div>
                     <button type="submit">Editar Projeto</button>
@@ -82,4 +85,4 @@ export function Modal ({ isActive, closeModal }: ModalProps)  {
             </Content>
         </Container>
     );
-};
+}

@@ -14,17 +14,15 @@ export function Projects() {
     const message = location.state;
 
     const { projects, handleDeleteProject } = useContext(ProjectsContext);
-    const [projectById, setProjectById] = useState({name: '', value: 0})
 
     const [openModal, setOpenModal] = useState(false);
 
     return (
         <SectionContainer>
             <Message messageStatus={!!message} message={String(message)} />
-            <Modal
-                isActive={openModal}
-                closeModal={setOpenModal}
-            />
+            {openModal && (
+                    <Modal closeModal={setOpenModal} />
+            )}
             <Container>
                 <div>
                     <h1>Projects</h1>

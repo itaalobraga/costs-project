@@ -25,15 +25,14 @@ type editProjectProps = Omit<ProjectProps, 'id'>;
 type ProjectsContextProps = {
     projects: ProjectProps[];
     categories: CategoryProps[];
-    projectId: Number;
+    projectById: ProjectByIdProps;
     handleCreateProject: (project: createProjectProps) => Promise<void>;
     handleDeleteProject: (id: Number) => void;
-    handleEditProject: (
-        projectUpdated: editProjectProps,
-        id: Number
-    ) => Promise<void>;
-    setProjectId: (param: number) => void;
+    handleEditProject: (projectUpdated: editProjectProps, id: Number) => Promise<void>;
+    getProjectById: (rojectId: number) => void;
 };
+
+type ProjectByIdProps = ProjectProps
 
 export const ProjectsContext = createContext<ProjectsContextProps>(
     {} as ProjectsContextProps
@@ -42,7 +41,8 @@ export const ProjectsContext = createContext<ProjectsContextProps>(
 export function ProjectsContextProvider({ children }: ProjectsContextProvider) {
     const [categories, setCategories] = useState<CategoryProps[]>([]);
     const [projects, setProjects] = useState<ProjectProps[]>([]);
-    const [projectId, setProjectId] = useState(0);
+    const [projectById, setProjectById] = useState({} as ProjectByIdProps);
+
 
     const navigate = useNavigate();
 
@@ -102,16 +102,27 @@ export function ProjectsContextProvider({ children }: ProjectsContextProvider) {
         } catch (error) {}
     }
 
+    async function getProjectById(projectId: number) {
+        try {
+            const response = await api.get(`/projects/${projectId}`);
+            
+            setProjectById(response.data);
+            
+        } catch (error) {
+            
+        }
+    }
+
     return (
         <ProjectsContext.Provider
             value={{
                 projects,
                 categories,
-                projectId,
-                setProjectId,
+                projectById,
                 handleCreateProject,
                 handleDeleteProject,
                 handleEditProject,
+                getProjectById
             }}
         >
             {children}

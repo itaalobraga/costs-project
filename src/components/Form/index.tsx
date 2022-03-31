@@ -27,6 +27,7 @@ export function Form() {
                     type="text"
                     placeholder="Insira o nome do projeto"
                     onChange={(e) => setProjectName(e.target.value)}
+                    value={projectName}
                     required
                 />
             </div>
@@ -36,15 +37,13 @@ export function Form() {
                     type="number"
                     placeholder="Insira o orçamento do projeto"
                     onChange={(e) => setProjectValue(Number(e.target.value))}
+                    value={projectValue}
                     required
                 />
             </div>
             <div>
                 <label>Selecione uma categoria:</label>
-                <select
-                    value={projectCategory}
-                    onChange={(e) => setProjectCategory(e.target.value)}
-                >
+                <select value={projectCategory} onChange={(e) => setProjectCategory(e.target.value)}>
                     {categories.map((category) => (
                         <option key={category.id} value={category.name}>
                             {category.name}

@@ -1,12 +1,5 @@
 {
-  "projects": [
-    {
-      "name": "gvcc",
-      "category": "Infra",
-      "value": 5458,
-      "id": 1
-    }
-  ],
+  "projects": [],
   "categories": [
     {
       "id": 1,

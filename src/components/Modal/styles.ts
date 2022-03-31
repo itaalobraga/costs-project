@@ -1,18 +1,11 @@
 import styled, { css } from 'styled-components';
 import { transparentize } from 'polished';
 
-type ModalProps = {
-    isActive: boolean;
-};
 
-export const Container = styled.div<ModalProps>`
-    display: none;
+export const Container = styled.div`
+    display: flex;
     justify-content: center;
     align-items: center;
-
-    pointer-events: none;
-
-    user-select: none;
 
     position: absolute;
     top: 0;
@@ -22,15 +15,7 @@ export const Container = styled.div<ModalProps>`
 
     background-color: ${transparentize(0.4, '#363f5f')};
 
-    ${({ isActive }) =>
-        isActive &&
-        css`
-            display: flex;
-            pointer-events: auto;
-
-            user-select: auto;
-        `}
-`;
+`
 
 export const Content = styled.div`
     display: flex;
@@ -83,7 +68,7 @@ export const Form = styled.form`
 
         > label {
             font-size: 1.2rem;
-            font-weight: 600;   
+            font-weight: 600;
 
             color: var(--text-title);
         }
@@ -92,6 +77,8 @@ export const Form = styled.form`
             border: 0;
 
             padding: 0.6rem;
+
+            text-anchor: none;
         }
 
         > select {
@@ -104,7 +91,12 @@ export const Form = styled.form`
             color: var(--text-title);
 
             font-weight: 600;
+            
+            &:first-child {
+                color: var(--text-body);
+            }
         }
+
     }
 
     > button {
