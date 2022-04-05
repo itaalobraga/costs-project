@@ -1,6 +1,7 @@
 import { FormEvent, useContext, useState } from 'react';
 import { ProjectsContext } from '../../contexts/ProjectsContext';
 import { Container } from './styles';
+import CurrencyFormat from 'react-currency-format';
 
 export function Form() {
     const { categories, handleCreateProject } = useContext(ProjectsContext);
@@ -33,11 +34,21 @@ export function Form() {
             </div>
             <div>
                 <label>Orçamento do Projeto:</label>
-                <input
-                    type="number"
-                    placeholder="Insira o orçamento do projeto"
-                    onChange={(e) => setProjectValue(Number(e.target.value))}
-                    value={projectValue}
+                <CurrencyFormat
+                    type="text"
+                    prefix="R$ "
+                    decimalSeparator=","
+                    thousandSeparator="."
+                    decimalScale={2}
+                    fixedDecimalScale={true}
+                    placeholder={new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                    }).format(projectValue)}
+                    onValueChange={(values) => {
+                        setProjectValue(values.floatValue);
+                    }}
+                    spellCheck={false}
                     required
                 />
             </div>

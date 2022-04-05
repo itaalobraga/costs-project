@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
     padding: 0 4rem;
 
     > div {
@@ -27,6 +31,10 @@ export const Container = styled.div`
             gap: 2rem;
         }
     }
+
+    @media (max-width: 780px) {
+        padding: 0;
+    }
 `;
 
 export const CardsSection = styled.section`
@@ -40,7 +48,6 @@ export const CardsSection = styled.section`
     overflow: auto;
 
     padding: 1.2rem;
-    margin-top: 2rem;
 
     background-color: var(--text-title);
 
@@ -64,5 +71,9 @@ export const CardsSection = styled.section`
         border-radius: 0.3rem;
 
         background: var(--shape);
+    }
+
+    @media (max-width: 780px) {
+        justify-content: center;
     }
 `;

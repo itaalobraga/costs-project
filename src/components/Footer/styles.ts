@@ -1,17 +1,13 @@
 import styled from "styled-components";
 
 export const Container = styled.footer`
-    position: absolute;
-    bottom: 0;
-    left: 0;
-
     display: flex;
     justify-content: center;
     align-items: center;
 
     width: 100%;
 
-    z-index: 9999;
+    margin-top: 2rem;
     `;
 
 export const Icons = styled.div`

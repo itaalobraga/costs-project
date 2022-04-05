@@ -30,8 +30,8 @@ export function Modal({ closeModal }: ModalProps) {
     }
 
     return (
-        <Container>
-            <Content>
+        <Container onClick={(e) => closeModal(false)}>
+            <Content onClick={(e) => e.stopPropagation()}>
                 <button type="button" onClick={() => closeModal(false)}>
                     <FaWindowClose />
                 </button>

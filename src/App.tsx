@@ -3,8 +3,6 @@ import { ContainerWrapper } from './components/ContainerWrapper';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { ProjectsContextProvider } from './contexts/ProjectsContext';
-import { Company } from './pages/Company';
-import { Contact } from './pages/Contact';
 import { Home } from './pages/Home';
 import { NewProject } from './pages/NewProject';
 import { Projects } from './pages/Projects';

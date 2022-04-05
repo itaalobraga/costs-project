@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { transparentize } from 'polished';
 
 
@@ -14,8 +14,7 @@ export const Container = styled.div`
     bottom: 0;
 
     background-color: ${transparentize(0.4, '#363f5f')};
-
-`
+`;
 
 export const Content = styled.div`
     display: flex;

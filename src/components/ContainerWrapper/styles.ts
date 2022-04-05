@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
 export const Container = styled.main`
-    margin: 4.2rem auto 0;
+    padding-top: 2.5rem;
+    margin: auto;
 
     max-width: 90rem;
     width: 100%;
+
 `;
 
 export const SectionContainer = styled.section`

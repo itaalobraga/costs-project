@@ -32,17 +32,14 @@ type ProjectsContextProps = {
     getProjectById: (rojectId: number) => void;
 };
 
-type ProjectByIdProps = ProjectProps
+type ProjectByIdProps = ProjectProps;
 
-export const ProjectsContext = createContext<ProjectsContextProps>(
-    {} as ProjectsContextProps
-);
+export const ProjectsContext = createContext<ProjectsContextProps>({} as ProjectsContextProps);
 
 export function ProjectsContextProvider({ children }: ProjectsContextProvider) {
     const [categories, setCategories] = useState<CategoryProps[]>([]);
     const [projects, setProjects] = useState<ProjectProps[]>([]);
     const [projectById, setProjectById] = useState({} as ProjectByIdProps);
-
 
     const navigate = useNavigate();
 
@@ -77,15 +74,16 @@ export function ProjectsContextProvider({ children }: ProjectsContextProvider) {
     }
 
     async function handleDeleteProject(id: Number) {
-        const response = await api.delete(`/projects/${id}`);
-        const newProjects = projects.filter((project) => project.id !== id);
-        setProjects(newProjects);
+        try {
+            await api.delete(`/projects/${id}`);
+            const newProjects = projects.filter((project) => project.id !== id);
+            setProjects(newProjects);
+        } catch (error) {
+            
+        }
     }
 
-    async function handleEditProject(
-        projectUpdated: editProjectProps,
-        id: Number
-    ) {
+    async function handleEditProject(projectUpdated: editProjectProps, id: Number) {
         try {
             const response = await api.put(`/projects/${id}`, projectUpdated);
             const projectUpdate = projects.map((project) => {
@@ -94,23 +92,17 @@ export function ProjectsContextProvider({ children }: ProjectsContextProvider) {
                 }
                 return project;
             });
-            
-           
+
             setProjects(projectUpdate);
-
-
         } catch (error) {}
     }
 
     async function getProjectById(projectId: number) {
         try {
             const response = await api.get(`/projects/${projectId}`);
-            
+
             setProjectById(response.data);
-            
-        } catch (error) {
-            
-        }
+        } catch (error) {}
     }
 
     return (
@@ -122,7 +114,7 @@ export function ProjectsContextProvider({ children }: ProjectsContextProvider) {
                 handleCreateProject,
                 handleDeleteProject,
                 handleEditProject,
-                getProjectById
+                getProjectById,
             }}
         >
             {children}
